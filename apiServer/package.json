@@ -1,0 +1,21 @@
+{
+  "name": "Cancer-Hackathon-AWS-2014",
+  "description": "API server for handling requests for aws hackathon",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node master.js"
+  },
+  "dependencies": {
+    "body-parser": "1.8.x",
+    "express": "4.9.x",
+    "mysql": "2.5.x",
+    "redis": "^0.12.1",
+    "hiredis" : "0.1.17",
+    "response-time": "2.0.x",
+    "simple-errors": "0.0.x"
+  },
+  "devDependencies": {
+    "nock": "0.47.x"
+  }
+}

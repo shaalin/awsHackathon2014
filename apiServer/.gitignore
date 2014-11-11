@@ -1,0 +1,11 @@
+/log
+*.error
+
+.DS_Store
+
+/node_modules
+
+#sublime
+*sublime*
+
+cluster_pidfile

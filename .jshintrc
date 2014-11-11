@@ -1,0 +1,44 @@
+{
+	"curly": false,
+	"eqeqeq": true,
+	"eqnull": true,
+	"bitwise": true,
+	"camelcase": false,
+	"forin": true,
+	"immed": true,
+	"indent": 4,
+	"latedef": "nofunc", //Allows to define function anywhere in the file
+	"newcap": true, //Requires to capitalize name of constructor functions
+	"noarg": true, //Prohibts use of arguments.caller and arguments.calle
+	"noempty": true, //Can't have empty blocs
+	"nonew": true, //Can't call new Constructor() without assigining it to a variable
+	"plusplus": false,
+	"regexp": true,
+	"undef": true,
+	"unused": "vars",
+	"trailing": true,
+	"maxparams": 10,
+	"maxdepth": 3,
+	"maxstatements": 50,
+	"maxcomplexity": 5,
+	"smarttabs": true,
+	"quotmark" : "single",
+	"sub" :true,
+
+	"browser": false,
+	"node": true,
+
+	"globals": {
+		"process": true,
+		"setTimeout": true,
+		"require": true,
+		"console": true,
+		"module": true,
+		"GLOBAL": true,
+		"describe": true,
+		"before": true,
+		"it": true,
+		"clientSockets": true,
+		"__dirname": true
+	}
+}
