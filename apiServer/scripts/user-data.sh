@@ -7,15 +7,23 @@ echo start yum update
 yum update -y
 echo end yum update
 
+working_dir="/home/ec2-user/awsHackathon2014/apiServer"
+
+echo "$(pwd)"
 #echo print stopping any other forever process
-su - ec2-user -c "echo $PATH && exec /usr/local/bin/forever stopall"
+/usr/bin/forever stopall
 
 #making golfkick server log director
-mkdir -p /home/ec2-user/awsHackathon2014/apiServer/log
+mkdir -p $working_dir/log
 
-chown ec2-user:ec2-user home/ec2-user/awsHackathon2014/apiServer/log
+chown ec2-user:ec2-user $working_dir/log
 
-chmod 755 /home/ec2-user/awsHackathon2014/apiServer/log
+chmod 755 $working_dir/log
 
 #Section to start api server
-su - ec2-user -c "cd ~/awsHackathon2014/apiServer && npm install && export NODE_ENV=dev && exec /usr/local/bin/forever start -l forever-api.log -o log/log-api.log -e log/err-api.log --append --silent master.js && exec exit"
+cd $working_dir
+npm install
+source $working_dir/scripts/DB-Var
+export NODE_ENV=dev
+/usr/bin/forever start -l forever-api.log -o $working_dir/log/log-api.log -e $working_dir/log/err-api.log --append /home/ec2-user/awsHackathon2014/apiServer/master.js
+
