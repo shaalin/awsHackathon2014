@@ -1,2 +1,5 @@
 The server that will become our AMI is running at 
 ec2-54-67-15-43.us-west-1.compute.amazonaws.com
+
+The mysql DB is at:
+mysqldb.ckpwbv6ldizi.us-west-1.rds.amazonaws.com:3306
