@@ -9,3 +9,27 @@
 *sublime*
 
 cluster_pidfile
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Windows thumbnail db
+Thumbs.db
+
+# Maven
+log/
+target/
+
+# Gradle
+.gradle
+build/
