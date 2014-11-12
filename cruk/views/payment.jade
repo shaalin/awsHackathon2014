@@ -7,16 +7,17 @@ block content
     div.panel-body
       ul.list-group
         li.list-group-item
-          script(
-            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV"
-            data-amount="1000"
-            data-currency="GBP"
-            data-name="Race For Life"
-            data-description="Race For Life Payment"
-            data-image="/images/029418.png")
+          form(action="charge")
+            script(
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV"
+              data-amount="1000"
+              data-currency="GBP"
+              data-name="Race For Life"
+              data-description="Race For Life Payment"
+              data-image="/images/029418.png")
         li.list-group-item
-          a(href="http://uk.impulsepay.com/4276?Note=token%3Dtest%26event%3D101&ServiceDesc=CRUK%20Payment&Tariff=1000") Pay by SMS
+          a(href="http://uk.impulsepay.com/4276?Note=user_id%3D101%26event_id%3D500&ServiceDesc=Race%20for%20Life&Mobile=447888888999&Tariff=1000") Pay by SMS
         li.list-group-item
           script(
             async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=CRUK" 
@@ -27,7 +28,7 @@ block content
             data-currency="GBP" 
             data-shipping="0" 
             data-tax="0" 
-            data-callback="http://localhost:3000/payment_accept" 
+            data-callback="http://localhost:3000/charged" 
             data-env="sandbox"
           )
         li.list-group-item
