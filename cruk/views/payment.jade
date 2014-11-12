@@ -19,7 +19,7 @@ block content
         li.list-group-item
           a(href="http://uk.impulsepay.com/4276?Note=user_id%3D101%26event_id%3D500&ServiceDesc=Race%20for%20Life&Mobile=447888888999&Tariff=1000") Pay by SMS
         li.list-group-item
-          script(
+          //- script(
             async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=CRUK" 
             data-button="paynow" 
             data-name="Run for Life Payment" 
@@ -29,8 +29,14 @@ block content
             data-shipping="0" 
             data-tax="0" 
             data-callback="http://localhost:3000/charged" 
-            data-env="sandbox"
-          )
+            data-env="sandbox")
+
+          form(method="post" action="https://payments.securetrading.net/process/payments/details" id="PAYPAL").
+            <input type="hidden" name="_charset_" />
+            <input type="hidden" value="2-be2e326bba0d48139438ac717372ed13034b698ff66b57fb8275125be697ff1f" name="sttoken" />
+            <input type="hidden" value="PAYPAL" name="paymenttypedescription" />
+            <input type="hidden" value="2-45d25cbbc469e5215153f11d734a6d11" name="csrf_token" />
+            <input src="https://payments.securetrading.net/images/ST_4_119_2/logos/PAYPAL.png" title="PAYPAL" value="" alt="PAYPAL" type="image" class="paymentcard" />
         li.list-group-item
           p Pay with Amazon
         li.list-group-item
