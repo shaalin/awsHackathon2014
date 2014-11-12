@@ -124,6 +124,7 @@ function startServer() {
 	function _configureServer() {
 		//Generic Logger
 		app.use(express.static(__dirname + '/public'));
+		app.use(middlewares['corsHandler']());
 		app.use(responseTime());
 		app.use(bodyParser.json({
 			type: 'application/json'
