@@ -140,9 +140,13 @@
 
 
     function showAccountInfo() {
-        FB.api('/me?fields=name,picture', function(response) {
+        FB.api('/me?fields=name,picture,email,first_name,last_name', function(response) {
             document.getElementById('accountInfo').style.display = 'block';
             document.getElementById('accountInfo').innerHTML = ('<img src="' + response.picture.data.url + '"> ' + response.name);
+            document.getElementById('email').value=response.email;
+            document.getElementById('email2').value=response.email;
+            document.getElementById('first_name').value=response.first_name;
+            document.getElementById('last_name').value=response.last_name;
         });
     }
 </script>
@@ -202,7 +206,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label" for="email">*Start with your email</label>
                             <div class="col-sm-8">
-                                <input type="email" name="email" class="form-control" value="" />
+                                <input id="email" type="email" name="email" class="form-control" value="" />
                                 <span class="glyphicon form-control-feedback"></span>
                             </div>
                         </div>
@@ -214,7 +218,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label" for="email2">*Confirm email</label>
                             <div class="col-sm-8">
-                                <input type="email2" name="email2" class="form-control" value="" />
+                                <input id="email2" type="email2" name="email2" class="form-control" value="" />
                                 <span class="glyphicon form-control-feedback"></span>
                             </div>
                         </div>
@@ -254,7 +258,7 @@
                             <div class="form-group has-feedback">
                                 <label class="col-sm-4 control-label" for="firstname">*First Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="firstname" class="form-control" value="" data-bind="value: firstname" />
+                                    <input type="text" id="first_name" name="firstname" class="form-control" value="" data-bind="value: firstname" />
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
@@ -263,7 +267,7 @@
                             <div class="form-group has-feedback">
                                 <label class="col-sm-4 control-label" for="lastname">*Last Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="lastname" class="form-control" value="" data-bind="value: lastname" />
+                                    <input type="text" id="last_name" name="lastname" class="form-control" value="" data-bind="value: lastname" />
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
