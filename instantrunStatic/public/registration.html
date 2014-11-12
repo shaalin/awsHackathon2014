@@ -178,7 +178,7 @@
 
         <form id="event-registration-form" class="form-horizontal" name="event-registration-form" method="post" action="" autocomplete="on" role="form">
 
-            <div id="step-0-social-login">
+            <div id="step-1-wrapper" data-bind="visible: onStep() == 1, with: user">
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="accountInfo" style="padding-top: 20px">You haven't logged in yet.</div>
@@ -208,9 +208,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="step-1-wrapper" data-bind="visible: onStep() == 1, with: user">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group has-feedback">
