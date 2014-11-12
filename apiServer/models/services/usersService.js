@@ -1,5 +1,6 @@
 'use strict';
 var userRepository,
+	eventRepository,
 	databaseService,
 	utility = require('./../../utils/utility'),
 	constants = require('./../../utils/constants');
@@ -46,47 +47,6 @@ module.exports.insertUser = function insertUser(userDetails, callback) {
 };
 
 
-
-/**
- *	Function to retreive user
- *	@userId : userID of the user to retreived
- *  @callback : Async callback function
- **/
-module.exports.getUser = function getUser(userId, callback) {
-	var dbContextCls = {},
-		user,
-		errorHandler = utility.wrapErrorHandler(dbContextCls, databaseService, callback);
-	//Callback on receving dbContext
-	var onDbContext = utility.wrap(function(context) {
-		dbContextCls.dbContext = context;
-		var rep = new userRepository(dbContextCls.dbContext);
-		rep.getById(userId, onUser);
-	}, 'usersService.getUser.onDbContext', errorHandler);
-
-	//Callback on getting user from the repository
-	var onUser = utility.wrap(function(userFromDatabase) {
-		(function() {
-			if (!userFromDatabase) { //If the user is not present in the database
-
-				utility.throwError(404, '40407', null, {
-					'userId': userId
-				}, null);
-			}
-		})();
-		//Assigning user to user received from database
-		user = userFromDatabase;
-		//Diposing dbContext
-		databaseService.diposeDbContext(null, dbContextCls.dbContext, onDispose);
-	}, 'usersService.getUser.onUser', errorHandler);
-	//Callback on dbContext being disposed.
-	var onDispose = utility.wrap(function() {
-		return callback(null, user);
-	}, 'usersService.getUser.onDispose', callback);
-	databaseService.getDbContext({
-		tx: false
-	}, onDbContext);
-};
-
 /**
  *	Function to retreive user
  *	@userId : emailId of the user to retreived
@@ -128,12 +88,55 @@ module.exports.getUserFromEmail = function getUser(emailId, callback) {
 };
 
 
+/**
+ *	Function to retreive user
+ *	@userId : emailId of the user to retreived
+ *  @callback : Async callback function
+ **/
+module.exports.addUserEvent = function addUserEvent(event, callback) {
+	var dbContextCls = {},
+		user,
+		errorHandler = utility.wrapErrorHandler(dbContextCls, databaseService, callback);
+	//Callback on receving dbContext
+	var onDbContext = utility.wrap(function(context) {
+		dbContextCls.dbContext = context;
+		var rep = new userRepository(dbContextCls.dbContext);
+		rep.getUser(event.email, onUser);
+	}, 'usersService.getUserFromEmail.onDbContext', errorHandler);
 
+	//Callback on getting user from the repository
+	var onUser = utility.wrap(function(userFromDatabase) {
+		(function() {
+			if (!userFromDatabase) { //If the user is not present in the database
 
+				utility.throwError(404, '40407', null, {
+					'emailId': event.email
+				}, null);
+			}
+		})();
+		//Assigning user to user received from database
+		user = userFromDatabase;
+		var rep = new eventRepository(dbContextCls.dbContext);
+		rep.addEvent(event, onEventAdd);
+	}, 'usersService.getUserFromEmail.onUser', errorHandler);
 
+	var onEventAdd = utility.wrap(function() {
+		//Diposing dbContext
+		databaseService.diposeDbContext(null, dbContextCls.dbContext, onDispose);
+
+	}, 'usersService.addUserEvent.onEventAdd', errorHandler);
+	//Callback on dbContext being disposed.
+	var onDispose = utility.wrap(function() {
+		return callback(null, event);
+	}, 'usersService.getUserFromEmail.onDispose', callback);
+	databaseService.getDbContext({
+		tx: true
+	}, onDbContext);
+};
 
 module.exports.init = function init(app, repositories) {
 	var config = app.get('config');
 	userRepository = repositories.usersRepository;
+	eventRepository = repositories.eventRepository;
 	databaseService = app.get('sharedServices')[config.shared.names.databaseService];
 };

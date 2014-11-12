@@ -1,0 +1,17 @@
+{
+  "name": "Cancer-Hackathon-AWS-2014",
+  "description": "Static server for handling requests for aws hackathon",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node master.js"
+  },
+  "dependencies": {
+    "express": "4.9.x",
+    "response-time": "2.0.x",
+    "simple-errors": "0.0.x"
+  },
+  "devDependencies": {
+    "nock": "0.47.x"
+  }
+}
