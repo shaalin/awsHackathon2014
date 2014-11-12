@@ -16,7 +16,19 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
     <link rel="stylesheet" href="static/css/app.css">
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/underscore-1.7.0/underscore-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/backbone-1.1.2/backbone-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/backbone-associations-0.6.2/backbone-associations-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/knockout-3.2.0/dist/knockout.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/knockback-0.20.4/knockback.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/underscore.string-2.3.3/dist/underscore.string.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/moment-2.4.0/min/moment.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="static/js/app-init.js"></script>
+    <script src="static/js/models.js"></script>
+    <script src="static/js/viewmodels.js"></script>
+    <script src="static/js/registration.js"></script>
 </head>
 
 <body>
@@ -26,19 +38,19 @@
             <h3>Pretty Muddy Clapham - 5k</h3>
             <span>Sun 05 Oct, 2014 - 12:30PM</span>
             <div class="center-block">
-                <div class="btn-group" style="margin-top: 10px; margin-bottom: 10px;" data-bind="with: myProfile">
-                    <button id="tab-step-1" type="button" class="btn btn-info tab-step">Enter</button>
-                    <button id="tab-step-2" type="button" class="btn btn-default tab-step">Details</button>
-                    <button id="tab-step-3" type="button" class="btn btn-default tab-step">Confirm</button>
-                    <button id="tab-step-4" type="button" class="btn btn-default tab-step">Pay</button>
-                    <button id="tab-step-5" type="button" class="btn btn-default tab-step">Thanks</button>
+                <div class="btn-group" style="margin-top: 10px; margin-bottom: 10px;">
+                    <button id="tab-step-1" type="button" class="btn btn-pink tab-step" data-bind="css: { 'btn-pink': onStep() == 1, 'btn-default': onStep() != 1 }, click: selectTab.bind($data, 1)">Enter</button>
+                    <button id="tab-step-2" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 2, 'btn-default': onStep() != 2 }, click: selectTab.bind($data, 2)">Details</button>
+                    <button id="tab-step-3" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 3, 'btn-default': onStep() != 3 }, click: selectTab.bind($data, 3)">Confirm</button>
+                    <button id="tab-step-4" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 4, 'btn-default': onStep() != 4 }, click: selectTab.bind($data, 4)">Pay</button>
+                    <button id="tab-step-5" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 5, 'btn-default': onStep() != 5 }, click: selectTab.bind($data, 5)">Thanks</button>
                 </div>
             </div>
         </div>
 
         <form id="event-registration-form" class="form-horizontal" name="event-registration-form" method="post" action="" autocomplete="on" role="form">
 
-            <div id="step-1-wrapper">
+            <div id="step-1-wrapper" data-bind="with: user">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group has-feedback">
@@ -74,14 +86,14 @@
                 </div>
             </div>
 
-            <div id="step-2-wrapper">
+            <div id="step-2-wrapper" data-bind="with: user">
                 <div id="personal-details-wrapper">
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group has-feedback">
                                 <label class="col-sm-4 control-label" for="firstname">*Title</label>
                                 <div class="col-sm-8">
-                                    <select name="attendanceDay" class="inputbox form-control" data-bind="value: attendanceDay">
+                                    <select name="attendanceDay" class="inputbox form-control">
                                         <option value="1">Ms
                                         </option>
                                         <option value="2">Miss
@@ -111,23 +123,23 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label class="col-sm-4 control-label" for="lastname">*Birthday</label>
-                            <div class="col-sm-8">
-                                <input type="date" name="birthday" class="form-control" placeholder="dd/mm/yyyy">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="birthday">*Birthday</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="birthday" class="form-control" placeholder="dd/mm/yyyy" data-bind="value: birthday">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group has-feedback">
-                            <label class="col-sm-4 control-label" for="mobile">*Phone/Mobile</label>
-                            <div class="col-sm-8">
-                                <input type="text" name="mobile" class="form-control" value="" data-bind="value: mobile" />
-                                <span class="glyphicon form-control-feedback"></span>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="mobile">*Phone/Mobile</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="mobile" class="form-control" value="" data-bind="value: mobile" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,7 +163,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" for="state">State</label>
                                 <div class="col-sm-8">
-                                    <select name="state" class="inputbox form-control" data-bind="options: availableStates, optionsText: 'text', optionsValue: 'value', value: state, valueAllowUnset: true"></select>
+                                    <select name="state" class="inputbox form-control"></select>
                                 </div>
                             </div>
                         </div>
@@ -160,9 +172,9 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group has-feedback">
-                                <label class="col-sm-4 control-label" for="street1">*Street 1</label>
+                                <label class="col-sm-4 control-label" for="street1">*Street</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="street1" class="form-control" value="" data-bind="value: address1" />
+                                    <input type="text" name="street1" class="form-control" value="" data-bind="value: street1" />
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
@@ -171,7 +183,7 @@
                             <div class="form-group has-feedback">
                                 <label class="col-sm-4 control-label" for="city">*Suburb/City</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="city" class="form-control" value="" data-bind="value: suburb" />
+                                    <input type="text" name="city" class="form-control" value="" data-bind="value: city" />
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
@@ -211,7 +223,7 @@
                             <div class="col-sm-offset-4 col-sm-6">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="terms" data-bind="checked: isAgreed">I agree to the
+                                        <input type="checkbox" name="terms" data-bind="checked: $parent.isAgreed">I agree to the
                                         <a href="javascript:void(0)" target="_blank">terms and conditions</a>
                                         and <a>event rules</a>
                                     </label>
@@ -236,12 +248,15 @@
             <div id="confirm-registration">
                 <div class="section-header">Your details</div>
                 <hr>
-                <div>
-                    <p><span>First Name</span>&nbsp;<span>Last Name</span>
+                <div data-bind="with: user">
+                    <p><span>Name:</span>&nbsp;<span data-bind="text: firstname"></span>&nbsp;<span data-bind="text: lastname"></span>
                     </p>
-                    <p>Email</p>
-                    <p>Phone/Mobile</p>
-                    <p>Address</p>
+                    <p><span>Email:</span>&nbsp;<span data-bind="text: email"></span>
+                    </p>
+                    <p><span>Mobile:</span>:&nbsp;<span data-bind="text: mobile"></span>
+                    </p>
+                    <div>Address<span></span>:&nbsp;<span data-bind="text: fullAddress"></span>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
