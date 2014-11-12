@@ -1,0 +1,93 @@
+mmcore.SetCookie('mmid','-631470160|CQAAAAoWqL23NwsAAA==',365,1);mmcore.SetCookie('pd','-276468851|CQAAAAoBQhaovbc3CyGd7egDAMrCCaUPzNFIAA0AAADG/PBB78vRSAAAAAD/////AP//////////AAZEaXJlY3QBNwsDAAAAAAABAAAAAAD///////////////8AAAAAAAFF',365);mmcore.SetCookie('srv','nycvwcgeu03',365);(function(){if(typeof(mmcore.GenInfo)!='object')mmcore.GenInfo={};mmcore.EH=function(e){var s=e.message+'\r\n';if(!window.mm_error)window.mm_error=s;else window.mm_error+=s;};
+try{
+mmcore.mm_ga_integration = mmcore.mm_ga_integration || function mm_ga_integration() {
+	mmcore.AddDocLoadHandler(function() {
+		var gen = mmcore.GenInfo;
+		var info = "";//Analyse GenInfo and obtain Test Numbers and Variants code - relies on "_" being used in testname and variantname like so T1_testmname, A1_variantname
+		var arrE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+		for (var campaign in gen) {
+			if (gen.hasOwnProperty(campaign)) {
+				var mm_execute_ga = 1;
+				info += campaign.split('_')[0] + '.';
+				var elemNum = 0;
+				for (var element in gen[campaign]) {
+					if (gen[campaign].hasOwnProperty(element)) {
+					  var variant = gen[campaign][element].split('_')[0];
+						// VM: "Default" will be replaced with element's ID, i.e.  A1, B1, C1, etc.
+						info += (variant.toLowerCase() == 'default' ? arrE[elemNum]+'1' : variant) + '.';
+						window.mmcore.not_empty = '1';
+						elemNum++;
+					}
+				};
+				if (window.mmcore.not_empty != '1') {
+					info += 'NA';
+				}
+			}
+			if (window.mmcore.not_empty) {
+				delete window.mmcore.not_empty;
+			}
+			info = info.replace(/\.$/, ",");
+		}
+		info = info.replace(/,$/, "").toUpperCase();//Check if customer has seen other experiences and send data to GA
+
+		if (mm_execute_ga === 1) {
+			if (!mmcore.GetCookie('mm_ga', 'global')) {
+				mmcore.SetCookie('mm_ga', info, '60', '1');
+				if (window._gaq && typeof(window._gaq.push) === "function") {
+					window._gaq.push(["_setCustomVar", 5, "Maxymiser Experiment 2014", info, 1]);
+					window._gaq.push(['_trackEvent', 'Maxymiser', 'cv_set', 'cv_set']);
+				}
+			} else {
+				var mm_ga_data = mmcore.GetCookie('mm_ga', '1');
+				if (mm_ga_data.indexOf(info) == -1) {
+					var mm_ga = mm_ga_data + ',' + info;
+					mmcore.SetCookie('mm_ga', mm_ga, '60', '1');
+					if (window._gaq && typeof(window._gaq.push) === "function") {
+						window._gaq.push(["_setCustomVar", 5, "Maxymiser Experiment 2014", mm_ga, 1]);
+						window._gaq.push(['_trackEvent', 'Maxymiser', 'cv_set', 'cv_set']);
+					}
+				}
+			}
+		}
+	});
+};
+}catch(err){mmcore.EH(err);}
+try{
+mmcore.CGRequest = function(callback) {
+	//var _t=mmcore, o=_t._DS(_t.GetCookie("mmact",1),function() {
+	var _t=mmcore, o=_t._DS(_t.GetCookie("mmact"),function() {
+		_t.SetAction.apply(_t,this)
+	});
+	//_t.SetCookie("mmact","",-1,1);
+	_t.SetCookie("mmact","",-1);
+
+	var tmpCallback = callback;
+	callback = function() {
+		if(mmcore.tmp_cginfo_tmp) {
+			for(var i = 0; i < mmcore.tmp_cginfo_tmp.Campaigns.length; i++) {
+				mmcore.cginfo_tmp.Campaigns.push(mmcore.tmp_cginfo_tmp.Campaigns[i]);
+			}
+			for(var i = 0; i < mmcore.tmp_cginfo_tmp.Maxyboxes.length; i++) {
+				mmcore.cginfo_tmp.Maxyboxes.push(mmcore.tmp_cginfo_tmp.Maxyboxes[i]);
+			}
+		}
+		return tmpCallback && tmpCallback();
+	}
+
+	_t._callback[++_t._request_id] = callback;
+
+	mmcore.tmp_cginfo_tmp = mmcore.cginfo_tmp;
+	return _t.GetParam("gm") !=2 ? (_t._sid = _t._Tag(_t._TagUri())) : null;
+}
+mmcore.tmpSetCookie = mmcore.SetCookie;
+mmcore.SetCookie = function(a,b,c,d) {
+	if(a == 'fpv') {
+		b = b.replace(/\,/g, ';');
+	}
+	return mmcore.tmpSetCookie(a,b,c,d);
+};
+}catch(err){mmcore.EH(err);}
+if(typeof mmcore._callback=='object'&&typeof mmcore._callback[1]=='function'){try{mmcore._callback[1]();}catch(err){mmcore.EH(err);}
+finally{mmcore._callback[1]=null;}}
+})();
