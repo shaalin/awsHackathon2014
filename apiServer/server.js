@@ -126,7 +126,7 @@ function startServer() {
 		app.use(express.static(__dirname + '/public'));
 		app.use(responseTime());
 		app.use(bodyParser.json({
-			type: 'text/plain'
+			type: 'application/json'
 		}));
 		//hook for sending close connection to keep-alive connecitons
 		app.use(middlewares['gracefulShutdownHandler']({

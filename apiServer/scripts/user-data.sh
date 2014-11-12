@@ -24,6 +24,6 @@ chmod 755 $working_dir/log
 cd $working_dir
 npm install
 source $working_dir/scripts/DB-Var
-export NODE_ENV=dev
+export NODE_ENV=local
 /usr/bin/forever start -l forever-api.log -o $working_dir/log/log-api.log -e $working_dir/log/err-api.log --append /home/ec2-user/awsHackathon2014/apiServer/master.js
 
