@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div.panel.panel-primary
+    div.panel-heading
+      h3.panel-title Choose a payment option:
+    div.panel-body
+      ul.list-group
+        li.list-group-item
+          script(
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV"
+            data-amount="1000"
+            data-currency="GBP"
+            data-name="Race For Life"
+            data-description="Race For Life Payment"
+            data-image="/images/029418.png")
+        li.list-group-item
+          a(href="http://uk.impulsepay.com/4276?Note=token%3Dtest%26event%3D101&ServiceDesc=CRUK%20Payment&Tariff=1000") Pay by SMS
+        li.list-group-item
+          script(
+            async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=CRUK" 
+            data-button="paypal" 
+            data-name="Run for Life Payment" 
+            data-quantity="1" 
+            data-amount="10.00" 
+            data-currency="GBP" 
+            data-shipping="0" 
+            data-tax="0" 
+            data-callback="http://localhost:3000/payment_accept" 
+            data-env="sandbox"
+          )
+        li.list-group-item
+          p Pay with Amazon
+        li.list-group-item
+          p Pay with Google Checkout
+  div.footer
