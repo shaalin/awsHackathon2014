@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Instant Run</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' , href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' , href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css'>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="static/css/app.css">
+    <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/underscore-1.7.0/underscore-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/backbone-1.1.2/backbone-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/backbone-associations-0.6.2/backbone-associations-min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/knockout-3.2.0/dist/knockout.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/knockback-0.20.4/knockback.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/underscore.string-2.3.3/dist/underscore.string.min.js"></script>
+    <script src="//d3sl4eol196lp1.cloudfront.net/bower_components/moment-2.4.0/min/moment.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="static/js/app-init.js"></script>
+    <script src="static/js/models.js"></script>
+    <script src="static/js/viewmodels.js"></script>
+    <script src="static/js/registration.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+</head>
+
+<body>
+    <script>
+        // Google
+
+        function signinCallback(authResult) {
+            if (authResult['status']['signed_in']) {
+                // Update the app to reflect a signed in user
+                // Hide the sign-in button now that the user is authorized, for example:
+                document.getElementById('signinButton').setAttribute('style', 'display: none');
+                document.getElementById('glogout').innerHTML = '<span onclick="gapi.auth.signOut();">Sign out from Google+</span>';
+            } else {
+                // Update the app to reflect a signed out user
+                // Possible error values:
+                //   "user_signed_out" - User is signed-out
+                //   "access_denied" - User denied access to your app
+                //   "immediate_failed" - Could not automatically log in the user
+                console.log('Sign-in state: ' + authResult['error']);
+            }
+        }
+
+         // Facebook
+         // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                showAccountInfo();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+            }
+        }
+
+         // This function is called when someone finishes with the Login
+         // Button.  See the onlogin handler attached to it in the sample
+         // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1491848391082085',
+                cookie: true, // enable cookies to allow the server to access
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.1' // use version 2.1
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+            FB.Event.subscribe('auth.statusChange', function (response) {
+
+                if (response.status === 'connected') {
+                    showAccountInfo();
+                } else {
+                    document.getElementById('accountInfo').style.display = 'none';
+                }
+            });
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    showAccountInfo();
+                } else {
+                    document.getElementById('accountInfo').style.display = 'none';
+                }
+            });
+
+        };
+
+         // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+         // Here we run a very simple test of the Graph API after login is
+         // successful.  See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function (response) {
+                console.log(JSON.stringify(response));
+                console.log('Successful login for: ' + response.name);
+                document.getElementById('status').innerHTML =
+                    'Thanks for logging in, ' + response.name + '! <span onclick="logout()" >Click here to logout</span>.';
+            });
+        }
+
+
+        function showAccountInfo() {
+            FB.api('/me?fields=name,picture,email,first_name,last_name', function (response) {
+                document.getElementById('accountInfo').style.display = 'block';
+                document.getElementById('accountInfo').innerHTML = ('<img src="' + response.picture.data.url + '"> ' + response.name);
+                document.getElementById('email').value = response.email;
+                document.getElementById('email2').value = response.email;
+                document.getElementById('first_name').value = response.first_name;
+                document.getElementById('last_name').value = response.last_name;
+            });
+        }
+    </script>
+    <div id="event-registration" class="container">
+
+        <div class="ml-header">
+            <h3>Pretty Muddy Clapham - 5k</h3>
+            <span>Sun 05 Oct, 2014 - 12:30PM</span>
+            <div class="center-block">
+                <div class="btn-group" style="margin-top: 10px; margin-bottom: 10px;">
+                    <button id="tab-step-1" type="button" class="btn btn-pink tab-step" data-bind="css: { 'btn-pink': onStep() == 1, 'btn-default': onStep() != 1 }, click: selectTab.bind($data, 1)">Enter</button>
+                    <button id="tab-step-2" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 2, 'btn-default': onStep() != 2 }, click: selectTab.bind($data, 2)">Details</button>
+                    <button id="tab-step-3" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 3, 'btn-default': onStep() != 3 }, click: selectTab.bind($data, 3)">Confirm</button>
+                    <button id="tab-step-4" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 4, 'btn-default': onStep() != 4 }, click: selectTab.bind($data, 4)">Pay</button>
+                    <button id="tab-step-5" type="button" class="btn btn-default tab-step" data-bind="css: { 'btn-pink': onStep() == 5, 'btn-default': onStep() != 5 }, click: selectTab.bind($data, 5)">Thanks</button>
+                </div>
+            </div>
+        </div>
+
+        <form id="event-registration-form" class="form-horizontal" name="event-registration-form" method="post" action="" autocomplete="on" role="form">
+
+            <div id="step-0-social-login">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="accountInfo" style="padding-top: 20px">You haven't logged in yet.</div>
+                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true">
+                        </fb:login-button>
+
+                        <span id="signinButton">
+                            <span
+                            class="g-signin"
+                            data-callback="signinCallback"
+                            data-clientid="81808454760-vnooape3mvu8jmh1s6es7dr0gtms7347.apps.googleusercontent.com"
+                            data-cookiepolicy="single_host_origin"
+                            data-scope="email profile https://www.googleapis.com/auth/paymentssandbox.make_payments">
+                            </span>
+                        </span>
+                        <div id="glogout"></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-1-wrapper" data-bind="visible: onStep() == 1, with: user">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="email">*Start with your email</label>
+                            <div class="col-sm-8">
+                                <input id="email" type="email" name="email" class="form-control" value="" />
+                                <span class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="email2">*Confirm email</label>
+                            <div class="col-sm-8">
+                                <input id="email2" type="email2" name="email2" class="form-control" value="" />
+                                <span class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 2)">Enter Now&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-2-wrapper" data-bind="visible: onStep() == 2, with: user">
+                <div id="personal-details-wrapper">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="firstname">*Title</label>
+                                <div class="col-sm-8">
+                                    <select name="attendanceDay" class="inputbox form-control">
+                                        <option value="1">Ms
+                                        </option>
+                                        <option value="2">Miss
+                                        </option>
+                                        <option value="3">Mrs
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="firstname">*First Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="first_name" name="firstname" class="form-control" value="" data-bind="value: firstname" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="lastname">*Last Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="last_name" name="lastname" class="form-control" value="" data-bind="value: lastname" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="birthday">*Birthday</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="birthday" class="form-control" placeholder="dd/mm/yyyy" data-bind="value: birthday">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="mobile">*Phone/Mobile</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="mobile" class="form-control" value="" data-bind="value: mobile" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="postal-address-wrapper">
+                    <div class="section-header">Postal Address</div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="country">Country</label>
+                                <div class="col-sm-8">
+                                    <select name="country" class="inputbox form-control">
+                                        <option value="UK">United Kingdom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="state">State</label>
+                                <div class="col-sm-8">
+                                    <select name="state" class="inputbox form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="street1">*Street</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="street1" class="form-control" value="" data-bind="value: street1" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="city">*Suburb/City</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="city" class="form-control" value="" data-bind="value: city" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="postcode">*Postcode</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="postcode" class="form-control" value="" data-bind="value: postcode" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="manage-group" class="row" style="color: #D81B60;">
+                    <div class="col-sm-12">
+                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Create or Join a group</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="add-children" class="row" style="color: #D81B60;">
+                    <div class="col-sm-12">
+                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Add Children</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="terms" data-bind="checked: $parent.isAgreed">I agree to the
+                                        <a href="javascript:void(0)" target="_blank">terms and conditions</a>
+                                        and <a>event rules</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 3)">Continue&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="confirm-registration" data-bind="visible: onStep() == 3">
+                <div class="section-header">Your details</div>
+                <hr>
+                <div data-bind="with: user">
+                    <p><span>Name:</span>&nbsp;<span data-bind="text: firstname"></span>&nbsp;<span data-bind="text: lastname"></span>
+                    </p>
+                    <p><span>Email:</span>&nbsp;<span data-bind="text: email"></span>
+                    </p>
+                    <p><span>Mobile:</span>:&nbsp;<span data-bind="text: mobile"></span>
+                    </p>
+                    <div>Address<span></span>:&nbsp;<span data-bind="text: fullAddress"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="terms" data-bind="checked: isAgreed">Use your postal address as billing addres?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="clearfix">
+                    <div class="pull-left"><span style="font-size: 18px; font-wegith: bold">Total amount</span>
+                    </div>
+                    <div class="pull-right"><span style="font-size: 18px; font-wegith: bold">$25</span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 4)">Confirm&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="payment-wrapper" class="panel panel-primary" data-bind="visible: onStep() == 4">
+                <div class="panel-heading" <h3 class="panel-title">Choose a payment option:</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <form action="charged.html">
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV" data-amount="1000" data-currency="GBP" data-name="Race For Life" data-description="Race For Life Payment" data-image="/images/029418.png"></script>
+                            </form>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://uk.impulsepay.com/4276?Note=user_id%3D101%26event_id%3D500&ServiceDesc=Race%20for%20Life&Mobile=447888888999&Tariff=1000">Pay by SMS</a>
+                        </li>
+                        <li>
+                            <form method="post" action="details" id="PAYPAL">
+                                <input type="hidden" name="_charset_" />
+                                <input type="hidden" value="2-be2e326bba0d48139438ac717372ed13034b698ff66b57fb8275125be697ff1f" name="sttoken" />
+                                <input type="hidden" value="PAYPAL" name="paymenttypedescription" />
+                                <input type="hidden" value="2-45d25cbbc469e5215153f11d734a6d11" name="csrf_token" />
+                                <input src="https://payments.securetrading.net/images/ST_4_119_2/logos/PAYPAL.png" title="PAYPAL" value="" alt="PAYPAL" type="image" class="paymentcard" />
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="payment-wrapper" data-bind="visible: onStep() == 5">
+                Join Us
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>

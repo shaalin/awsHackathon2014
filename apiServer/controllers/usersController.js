@@ -19,7 +19,7 @@ function getUser(req, res, next){
 function addEvent(req, res, next){
 	res.responseGenerator = {};
 	res.responseGenerator.responseCode = 201;
-	
+
 	req.body.email = req.params.userId;
 	req.body.eventId = req.params.eventId;
 	usersService.addUserEvent(req.body, utility.wrapResponse(req, res, next));
