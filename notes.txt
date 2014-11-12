@@ -1,5 +1,5 @@
-The server that will become our AMI is running at 
-54.67.26.254
+Check out instantrun.uk.to:443 and api.instantrun.uk.to 
+
 
 The mysql DB is at:
 mysqldb.ckpwbv6ldizi.us-west-1.rds.amazonaws.com:3306
