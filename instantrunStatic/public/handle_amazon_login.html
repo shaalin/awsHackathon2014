@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript">
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+					results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+
+			var access_token = getParameterByName("access_token");
+			
+			$.ajax({
+				type: "GET",
+				url: "https://api.amazon.com/user/profile",
+				headers : {"Authorization" : "bearer " + access_token}
+			})
+				.done(function( data ) {
+				alert( "Data Saved: " + data );
+			});
+
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
