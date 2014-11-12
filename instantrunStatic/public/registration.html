@@ -198,7 +198,6 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
@@ -363,14 +362,18 @@
 
                 <div id="manage-group" class="row" style="color: #D81B60;">
                     <div class="col-sm-12">
-                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Create or Join a group</a>
+                        <div class="form-group">
+                            <div class="pull-right" style="margin-right: 20px"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Create or Join a group</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="add-children" class="row" style="color: #D81B60;">
                     <div class="col-sm-12">
-                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Add Children</a>
+                        <div class="form-group">
+                            <div class="pull-right" style="margin-right: 20px"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Add Children</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -475,7 +478,56 @@
             </div>
 
             <div id="payment-wrapper" data-bind="visible: onStep() == 5">
-                Join Us
+                <h4>Join Us</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="join-1">Yes, I'd like to hear from you by email
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="join-2">Yes, I'd like to hear from you by text message
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="join-3">Sorry, I don't want to hear from you.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%">Submit&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </form>
