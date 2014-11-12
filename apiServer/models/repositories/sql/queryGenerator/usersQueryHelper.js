@@ -11,7 +11,7 @@ exports.getUser = function getUser(queryContext, dbContext) {
 	//Query for selecting user
 	var userQuery = 'select us.email, us.firstName, us.lastName, us.password, us.phoneNo, us.profilePic from CancerDB.users us ' +
 		' where us.email = ' + connection.escape(data);
-
+	console.log(userQuery);
 	return userQuery;
 };
 
