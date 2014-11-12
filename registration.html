@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Instant Run</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap-3.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="static/css/app.css">
+    <script src="bower_components/modernizr-2.8.3/modernizr.js"></script>
+</head>
+
+<body>
+    <div id="event-registration" class="container">
+
+        <div class="ml-header">
+            <h3>Pretty Muddy Clapham - 5k</h3>
+            <span>Sun 05 Oct, 2014 - 12:30PM</span>
+            <div class="center-block">
+                <div class="btn-group" style="margin-top: 10px; margin-bottom: 10px;" data-bind="with: myProfile">
+                    <button id="tab-step-1" type="button" class="btn btn-info tab-step">Enter</button>
+                    <button id="tab-step-2" type="button" class="btn btn-default tab-step">Details</button>
+                    <button id="tab-step-3" type="button" class="btn btn-default tab-step">Confirm</button>
+                    <button id="tab-step-4" type="button" class="btn btn-default tab-step">Pay</button>
+                    <button id="tab-step-5" type="button" class="btn btn-default tab-step">Thanks</button>
+                </div>
+            </div>
+        </div>
+
+        <form id="event-registration-form" class="form-horizontal" name="event-registration-form" method="post" action="" autocomplete="on" role="form">
+
+            <div id="step-1-wrapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="email">*Start with your email</label>
+                            <div class="col-sm-8">
+                                <input type="email" name="email" class="form-control" value="" />
+                                <span class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="email2">*Confirm email</label>
+                            <div class="col-sm-8">
+                                <input type="email2" name="email2" class="form-control" value="" />
+                                <span class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Enter Now&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-2-wrapper">
+                <div id="personal-details-wrapper">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="firstname">*Title</label>
+                                <div class="col-sm-8">
+                                    <select name="attendanceDay" class="inputbox form-control" data-bind="value: attendanceDay">
+                                        <option value="1">Ms
+                                        </option>
+                                        <option value="2">Miss
+                                        </option>
+                                        <option value="3">Mrs
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="firstname">*First Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="firstname" class="form-control" value="" data-bind="value: firstname" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="lastname">*Last Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="lastname" class="form-control" value="" data-bind="value: lastname" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="lastname">*Birthday</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="birthday" class="form-control" placeholder="dd/mm/yyyy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label" for="mobile">*Phone/Mobile</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="mobile" class="form-control" value="" data-bind="value: mobile" />
+                                <span class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="postal-address-wrapper">
+                    <div class="section-header">Postal Address</div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="country">Country</label>
+                                <div class="col-sm-8">
+                                    <select name="country" class="inputbox form-control">
+                                        <option value="UK">United Kingdom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="state">State</label>
+                                <div class="col-sm-8">
+                                    <select name="state" class="inputbox form-control" data-bind="options: availableStates, optionsText: 'text', optionsValue: 'value', value: state, valueAllowUnset: true"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="street1">*Street 1</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="street1" class="form-control" value="" data-bind="value: address1" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="city">*Suburb/City</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="city" class="form-control" value="" data-bind="value: suburb" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group has-feedback">
+                                <label class="col-sm-4 control-label" for="postcode">*Postcode</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="postcode" class="form-control" value="" data-bind="value: postcode" />
+                                    <span class="glyphicon form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="manage-group" class="row" style="color: #D81B60;">
+                    <div class="col-sm-12">
+                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Create or Join a group</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="add-children" class="row" style="color: #D81B60;">
+                    <div class="col-sm-12">
+                        <div class="form-group"><a href="#"><i class="fa fa-chevron-down"></i>&nbsp;&nbsp;Add Children</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="terms" data-bind="checked: isAgreed">I agree to the
+                                        <a href="javascript:void(0)" target="_blank">terms and conditions</a>
+                                        and <a>event rules</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Continue&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="confirm-registration">
+                <div class="section-header">Your details</div>
+                <hr>
+                <div>
+                    <p><span>First Name</span>&nbsp;<span>Last Name</span>
+                    </p>
+                    <p>Email</p>
+                    <p>Phone/Mobile</p>
+                    <p>Address</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group has-feedback">
+                            <div class="col-sm-offset-4 col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="terms" data-bind="checked: isAgreed">Use your postal address as billing addres?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="clearfix">
+                    <div class="pull-left"><span style="font-size: 18px; font-wegith: bold">Total amount</span>
+                    </div>
+                    <div class="pull-right"><span style="font-size: 18px; font-wegith: bold">$25</span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Confirm&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="payment-wrapper">
+                <div>Credit/Debit Card</div>
+                <div>PayPal</div>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>
