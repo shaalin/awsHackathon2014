@@ -1,0 +1,18 @@
+.btn-pink {
+    color: #fff;
+    background-color: #E91E63;
+    border-color: #C2185B;
+}
+.btn-pink:hover,
+.btn-pink:focus,
+.btn-pink:active,
+.btn-pink.active {
+    color: #fff;
+    background-color: #D81B60;
+    border-color: #AD1457;
+}
+.section-header {
+    font-weight: 100;
+    font-size: 18px;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
