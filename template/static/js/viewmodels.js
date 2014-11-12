@@ -34,6 +34,11 @@
             self.onStep = ko.observable(1);
             self.selectTab = function (step) {
                 self.onStep(step);
+                window.scrollTo(0, 0);
+            };
+            self.goToStep = function (step) {
+                self.onStep(step);
+                window.scrollTo(0, 0);
             };
         }
     });

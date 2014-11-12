@@ -12,8 +12,8 @@
     <title>Instant Run</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
-    <link rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css'>
+    <link rel='stylesheet' , href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' , href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css'>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
     <link rel="stylesheet" href="static/css/app.css">
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
@@ -34,132 +34,132 @@
 </head>
 
 <body>
-<script>
+    <script>
+        // Google
 
-    // Google
-
-    function signinCallback(authResult) {
-        if (authResult['status']['signed_in']) {
-            // Update the app to reflect a signed in user
-            // Hide the sign-in button now that the user is authorized, for example:
-            document.getElementById('signinButton').setAttribute('style', 'display: none');
-            document.getElementById('glogout').innerHTML ='<span onclick="gapi.auth.signOut();">Sign out from Google+</span>';
-        } else {
-            // Update the app to reflect a signed out user
-            // Possible error values:
-            //   "user_signed_out" - User is signed-out
-            //   "access_denied" - User denied access to your app
-            //   "immediate_failed" - Could not automatically log in the user
-            console.log('Sign-in state: ' + authResult['error']);
-        }
-    }
-
-    // Facebook
-    // This is called with the results from from FB.getLoginStatus().
-    function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
-        // The response object is returned with a status field that lets the
-        // app know the current login status of the person.
-        // Full docs on the response object can be found in the documentation
-        // for FB.getLoginStatus().
-        if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            showAccountInfo();
-        } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-        } else {
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
-        }
-    }
-
-    // This function is called when someone finishes with the Login
-    // Button.  See the onlogin handler attached to it in the sample
-    // code below.
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    }
-
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '1491848391082085',
-            cookie     : true,  // enable cookies to allow the server to access
-                                // the session
-            xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.1' // use version 2.1
-        });
-
-        // Now that we've initialized the JavaScript SDK, we call
-        // FB.getLoginStatus().  This function gets the state of the
-        // person visiting this page and can return one of three states to
-        // the callback you provide.  They can be:
-        //
-        // 1. Logged into your app ('connected')
-        // 2. Logged into Facebook, but not your app ('not_authorized')
-        // 3. Not logged into Facebook and can't tell if they are logged into
-        //    your app or not.
-        //
-        // These three cases are handled in the callback function.
-
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-
-        FB.Event.subscribe('auth.statusChange', function(response) {
-
-            if (response.status === 'connected') {
-                showAccountInfo();
+        function signinCallback(authResult) {
+            if (authResult['status']['signed_in']) {
+                // Update the app to reflect a signed in user
+                // Hide the sign-in button now that the user is authorized, for example:
+                document.getElementById('signinButton').setAttribute('style', 'display: none');
+                document.getElementById('glogout').innerHTML = '<span onclick="gapi.auth.signOut();">Sign out from Google+</span>';
             } else {
-                document.getElementById('accountInfo').style.display = 'none';
+                // Update the app to reflect a signed out user
+                // Possible error values:
+                //   "user_signed_out" - User is signed-out
+                //   "access_denied" - User denied access to your app
+                //   "immediate_failed" - Could not automatically log in the user
+                console.log('Sign-in state: ' + authResult['error']);
             }
-        });
+        }
 
-        FB.getLoginStatus(function(response) {
+         // Facebook
+         // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
             if (response.status === 'connected') {
+                // Logged into your app and Facebook.
                 showAccountInfo();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
             } else {
-                document.getElementById('accountInfo').style.display = 'none';
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
             }
-        });
+        }
 
-    };
+         // This function is called when someone finishes with the Login
+         // Button.  See the onlogin handler attached to it in the sample
+         // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
 
-    // Load the SDK asynchronously
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1491848391082085',
+                cookie: true, // enable cookies to allow the server to access
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.1' // use version 2.1
+            });
 
-    // Here we run a very simple test of the Graph API after login is
-    // successful.  See statusChangeCallback() for when this call is made.
-    function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-            console.log(JSON.stringify(response));
-            console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML =
+            // Now that we've initialized the JavaScript SDK, we call
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+            FB.Event.subscribe('auth.statusChange', function (response) {
+
+                if (response.status === 'connected') {
+                    showAccountInfo();
+                } else {
+                    document.getElementById('accountInfo').style.display = 'none';
+                }
+            });
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    showAccountInfo();
+                } else {
+                    document.getElementById('accountInfo').style.display = 'none';
+                }
+            });
+
+        };
+
+         // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+         // Here we run a very simple test of the Graph API after login is
+         // successful.  See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function (response) {
+                console.log(JSON.stringify(response));
+                console.log('Successful login for: ' + response.name);
+                document.getElementById('status').innerHTML =
                     'Thanks for logging in, ' + response.name + '! <span onclick="logout()" >Click here to logout</span>.';
-        });
-    }
+            });
+        }
 
 
-    function showAccountInfo() {
-        FB.api('/me?fields=name,picture,email,first_name,last_name', function(response) {
-            document.getElementById('accountInfo').style.display = 'block';
-            document.getElementById('accountInfo').innerHTML = ('<img src="' + response.picture.data.url + '"> ' + response.name);
-            document.getElementById('email').value=response.email;
-            document.getElementById('email2').value=response.email;
-            document.getElementById('first_name').value=response.first_name;
-            document.getElementById('last_name').value=response.last_name;
-        });
-    }
-</script>
+        function showAccountInfo() {
+            FB.api('/me?fields=name,picture,email,first_name,last_name', function (response) {
+                document.getElementById('accountInfo').style.display = 'block';
+                document.getElementById('accountInfo').innerHTML = ('<img src="' + response.picture.data.url + '"> ' + response.name);
+                document.getElementById('email').value = response.email;
+                document.getElementById('email2').value = response.email;
+                document.getElementById('first_name').value = response.first_name;
+                document.getElementById('last_name').value = response.last_name;
+            });
+        }
+    </script>
     <div id="event-registration" class="container">
 
         <div class="ml-header">
@@ -210,7 +210,7 @@
                 </div>
             </div>
 
-            <div id="step-1-wrapper" data-bind="with: user">
+            <div id="step-1-wrapper" data-bind="visible: onStep() == 1, with: user">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group has-feedback">
@@ -239,14 +239,14 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Enter Now&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 2)">Enter Now&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="step-2-wrapper" data-bind="with: user">
+            <div id="step-2-wrapper" data-bind="visible: onStep() == 2, with: user">
                 <div id="personal-details-wrapper">
                     <div class="row">
                         <div class="col-sm-2">
@@ -398,14 +398,14 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Continue&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 3)">Continue&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="confirm-registration">
+            <div id="confirm-registration" data-bind="visible: onStep() == 3">
                 <div class="section-header">Your details</div>
                 <hr>
                 <div data-bind="with: user">
@@ -443,38 +443,41 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <a id="btn-step-1" class="btn btn-pink" style="width: 100%">Confirm&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                                <a id="btn-step-1" href="javascript:void(0)" class="btn btn-pink" style="width: 100%" data-bind="click: $parent.goToStep.bind($data, 4)">Confirm&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="payment-wrapper" class= "panel panel-primary">
-                <div class="panel-heading"
-                    <h3 class="panel-title">Choose a payment option:</h3>
+            <div id="payment-wrapper" class="panel panel-primary" data-bind="visible: onStep() == 4">
+                <div class="panel-heading" <h3 class="panel-title">Choose a payment option:</h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
                         <li class="list-group-item">
                             <form action="charged.html">
-                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV" data-amount="1000" data-currency="GBP" data-name="Race For Life" data-description="Race For Life Payment" data-image="/images/029418.png" ></script>
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_9cSnqs50nqeyoEHVzflP7lRV" data-amount="1000" data-currency="GBP" data-name="Race For Life" data-description="Race For Life Payment" data-image="/images/029418.png"></script>
                             </form>
                         </li>
                         <li class="list-group-item">
                             <a href="http://uk.impulsepay.com/4276?Note=user_id%3D101%26event_id%3D500&ServiceDesc=Race%20for%20Life&Mobile=447888888999&Tariff=1000">Pay by SMS</a>
                         </li>
                         <li>
-                          <form method="post" action="details" id="PAYPAL">
-                            <input type="hidden" name="_charset_" />
-                            <input type="hidden" value="2-be2e326bba0d48139438ac717372ed13034b698ff66b57fb8275125be697ff1f" name="sttoken" />
-                            <input type="hidden" value="PAYPAL" name="paymenttypedescription" />
-                            <input type="hidden" value="2-45d25cbbc469e5215153f11d734a6d11" name="csrf_token" />
-                            <input src="https://payments.securetrading.net/images/ST_4_119_2/logos/PAYPAL.png" title="PAYPAL" value="" alt="PAYPAL" type="image" class="paymentcard" />
-                          </form>
+                            <form method="post" action="details" id="PAYPAL">
+                                <input type="hidden" name="_charset_" />
+                                <input type="hidden" value="2-be2e326bba0d48139438ac717372ed13034b698ff66b57fb8275125be697ff1f" name="sttoken" />
+                                <input type="hidden" value="PAYPAL" name="paymenttypedescription" />
+                                <input type="hidden" value="2-45d25cbbc469e5215153f11d734a6d11" name="csrf_token" />
+                                <input src="https://payments.securetrading.net/images/ST_4_119_2/logos/PAYPAL.png" title="PAYPAL" value="" alt="PAYPAL" type="image" class="paymentcard" />
+                            </form>
                         </li>
                     </ul>
                 </div>
+            </div>
+
+            <div id="payment-wrapper" data-bind="visible: onStep() == 5">
+                Join Us
             </div>
 
         </form>
