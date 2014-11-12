@@ -32,6 +32,11 @@ constants.errors['40001'] = {
 };
 
 
+constants.errors['40407'] = {
+	code: 40407,
+	description: 'User doesn\'t exist.'
+};
+
 constants.errors['40009'] = {
 	code: 40009,
 	description: 'Invalid data passed.'

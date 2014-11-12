@@ -15,7 +15,7 @@ var config = {
 	workers: numCPUs,
 	pidfile: './cluster_pidfile',
 	log: __dirname + '/log/cluster.log',
-	title: 'histHand-master',
+	title: 'aws-master',
 	workerTitlePrefix: 'historicalHcp',
 	silent: false, // don't pass stdout/err to the master
 };

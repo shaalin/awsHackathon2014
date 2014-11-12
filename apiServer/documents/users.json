@@ -1,0 +1,11 @@
+{
+    "email": "someone1@gmail.com",
+    "firstName": "someone",
+    "lastName": "lastname",
+    "properties": [
+        {
+            "name": "optIn",
+            "value": "false"
+        }
+    ]
+}
