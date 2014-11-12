@@ -1,5 +1,10 @@
 <html>
 	<head>
+		<!-- please put the style below inside your CSS file -->
+		<style type="text/css">
+			#walletWidgetDiv{width: 400px; height: 228px;}
+		</style>
+
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		
 		<!-- Latest compiled and minified CSS -->
@@ -30,6 +35,21 @@
 		</script>
 	</head>
 	<body>
-		
+		<div id="walletWidgetDiv">
+		</div>
+		<script>
+		new OffAmazonPayments.Widgets.Wallet({
+		  sellerId: '81808454760-vnooape3mvu8jmh1s6es7dr0gtms7347.apps.googleusercontent.com',
+		  onPaymentSelect: function(orderReference) {
+				
+		  },
+		  design: {
+			  designMode: 'responsive'
+		  },
+		  onError: function(error) {
+			// your error handling code
+		  }
+		}).bind("walletWidgetDiv");
+		</script>
 	</body>
 </html>
